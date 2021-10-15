@@ -1,0 +1,18 @@
+echo "Inside custom .bash_profile"
+
+# The need for seperate custom bash_profile for macOS arises because in Ubuntu something is adding
+# directory "$HOME/bin" to PATH without need for custom code like the one below.
+# TODO There could be a better solution to this than creating two seperate files for the two OS.
+# Find out what it is?
+
+
+# Source bash_profile_common
+. /Volumes/Linux-CaseSensitive/non-company/compSC/dotfiles/bash_profile_common
+
+# add $HOME/bin to $PATH for any binary that will be put in $HOME/bin
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+echo "Exiting custom bash_profile"
