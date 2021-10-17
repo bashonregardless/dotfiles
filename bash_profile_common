@@ -75,6 +75,8 @@ fi
 # below make the "Fuzzy completion trigger" functionality work.
 #
 # Source fzf completion file
-source .config/nvim/pack/bundle/start/fzf/shell/completion.bash
+if [ -f .config/nvim/pack/bundle/start/fzf/shell/completion.bash ]; then
+	source .config/nvim/pack/bundle/start/fzf/shell/completion.bash
+fi
 
 echo "Exiting bash_profile_common"
