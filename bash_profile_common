@@ -20,9 +20,13 @@ fi
 #
 # Add $HOME/bin to $PATH for any binary that will be put in $HOME/bin
 # set PATH so it includes user's private bin if it exists
-#if [ -d "$HOME/bin" ] ; then
-#    PATH="$HOME/bin:$PATH"
-#fi
+
+# This will create duplicate entry in PATH env var if ~/bin exists.
+# To avoid duplicate entry, PATH env var must be analyzed for exitstence
+# of entry before adding it.
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
 # In SO question "When I execute bash, the $PATH keeps repeating itself",
 # it is stated that don't set your PATH incrementally in .bashrc; set it 
 # once in .profile and leave it alone thereafter.
