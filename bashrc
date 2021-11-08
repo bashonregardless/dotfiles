@@ -1,7 +1,7 @@
 echo "Inside custom .bashrc"
 
-#if [ -d "/Volumes/Linux-CaseSensitive/non-company/compSC/dotfiles/" ]; then
-#  source /Volumes/Linux-CaseSensitive/non-company/compSC/dotfiles/macOs_var
+#if [ -d "/Volumes/Linux-CaseSensitive/repos/dotfiles/" ]; then
+#  source /Volumes/Linux-CaseSensitive/repos/dotfiles/macOs_var
 #fi
 #
 #if [ -d "/user/home/repos/compSc/ubuntu_var/" ]; then
@@ -62,7 +62,7 @@ fi
 export FZF_DEFAULT_COMMAND='rg --files'
 
 # TODO put this command in separate file specific to macOS (or your machine)
- compSc="/Volumes/Linux-CaseSensitive/non-company/compSC/"
+repos="/Volumes/Linux-CaseSensitive/repos/"
 
 #if [ -d "$compSC" ]; then
 #  source "${compSc}/dotfiles/hr_aliases"
@@ -71,7 +71,7 @@ export FZF_DEFAULT_COMMAND='rg --files'
 #if [ -d "$compSC" ]; then
 #  alias cdcos="cd $compSc"
 #fi
- alias cdcos="cd $compSc"
+ alias cdrepo="cd $repos"
 
 echo "Exiting custom .bashrc file"
 

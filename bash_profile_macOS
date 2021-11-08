@@ -7,7 +7,7 @@ echo "Inside custom .bash_profile"
 
 
 # Source bash_profile_common
-. /Volumes/Linux-CaseSensitive/non-company/compSC/dotfiles/bash_profile_common
+. /Volumes/Linux-CaseSensitive/repos/dotfiles/bash_profile_common
 
 # add $HOME/bin to $PATH for any binary that will be put in $HOME/bin
 # set PATH so it includes user's private bin if it exists

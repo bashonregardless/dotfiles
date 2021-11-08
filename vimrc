@@ -9,17 +9,23 @@ if !exists('g:loaded_minpac')
   " Settings for plugin-less environment.
   ...
 else
+  " minpac is available.
+   call minpac#init()
   " Excerpted from book 'Modern Vim Craft' by Drew Neil
   call minpac#add('k-takata/minpac', {'type': 'opt'})
-  call minpac#add('junegunn/fzf', {'type': 'bundle'})
-  call minpac#add('mhinz/neovim-remote', {'type': 'bundle'})
-  call minpac#add('neovim/nvim-lspconfig', {'type': 'bundle'})
-  call minpac#add('nvim-treesitter/nvim-treesitter', {'type': 'bundle'})
-  call minpac#add('nvim-lua/plenary.nvim', {'type': 'bundle'})
-  call minpac#add('nvim-telescope/telescope.nvim', {'type': 'bundle'})
-  call minpac#add('nvim-telescope/telescope-fzf-native.nvim', {'type': 'bundle'})
-  call minpac#add('tpope/vim-fugitive', {'type': 'bundle'})
-  call minpac#add('tpope/vim-surround', {'type': 'bundle'})
+  call minpac#add('junegunn/fzf', {'type': 'start'})
+  call minpac#add('mhinz/neovim-remote', {'type': 'start'})
+  call minpac#add('neovim/nvim-lspconfig', {'type': 'start'})
+  call minpac#add('nvim-treesitter/nvim-treesitter', {'type': 'start'})
+  "call minpac#add('nvim-lua/plenary.nvim', {'type': 'start'})
+  " call minpac#add('nvim-telescope/telescope.nvim', {'type': 'start'})
+  "call minpac#add('nvim-telescope/telescope-fzf-native.nvim', {'type': 'start'})
+  call minpac#add('tpope/vim-fugitive', {'type': 'start'})
+  call minpac#add('tpope/vim-surround', {'type': 'start'})
+  call minpac#add('tpope/vim-obsession', {'type': 'start'})
+  call minpac#add('folke/tokyonight.nvim', {'type': 'start'})
+  call minpac#add('mattn/emmet-vim', {'type': 'start'})
+  call minpac#add('tpope/vim-projectionist', {'type': 'start'})
 
   " In ex-mode call 
   " PluginUpdate		- to update plugin usgin minpac
@@ -166,7 +172,7 @@ let g:ale_disable_lsp = 1
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
 
-let g:ale_fix_on_save = 0
+let g:ale_fix_on_save = 1
 
 " Excerpted from https://github.com/dense-analysis/ale/blob/master/doc/ale-typescript.txt
 " , section on tslint
@@ -199,4 +205,49 @@ if has('nvim')
   tnoremap <M-j> <c-\><c-n><c-w>j
   tnoremap <M-k> <c-\><c-n><c-w>k
   tnoremap <M-l> <c-\><c-n><c-w>l
+
+  " Terminal mode cursor color
+  hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
+  hi! TermCursor ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
+
 endif
+
+" Excerpted from Modern Vim Craft
+" Using the Current Neovim Instance as Your Preferred Text Editor
+if has('nvim') && executable('nvr')
+  let $VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+endif
+
+" REFER :help emmet-customize-key-mappings 
+" This might not necessarily be a good mapping, since <leader>=','
+" TODO This is indeed causing problem with mappings in emmet vim, see more examples
+" in github doc
+let g:user_emmet_leader_key = ','
+
+" See Greg Hurrell vim screencast video on youtube
+let g:projectionist_heuristics = {
+      \"*": {
+	\"*.js": {
+	  \"alternate": [
+	    \"{}.spec.js",
+	    \"{}.scss"
+	    \],
+	    \"type": "source"
+	    \},
+	    \"*.spec.js": {
+	      \  "alternate": [
+		\"{}.scss",
+		\"{}.js"
+	      \],
+	      \  "type": "test"
+	      \  },
+	      \"*.scss": {
+	      \  "alternate": [
+		\"{}.js",
+		\"{}.test.js"
+	      \],
+		\  "type": "style"
+		\}
+		\}
+		\}
+

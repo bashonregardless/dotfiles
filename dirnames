@@ -1,0 +1,7 @@
+echo "Inside bash_profile"
+
+repos = "$HOME/repos/"
+dotfiles = "$repos/dotfiles"
+bash_profile_common = "$dotfiles/bash_profile_common"
+bash_profile_common_macOS = "$dotfiles/bash_profile_common_macOS"
+bash_profile_common_ubuntu = "$dotfiles/bash_profile_common_ubuntu"
