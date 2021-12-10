@@ -34,6 +34,7 @@ else
   command! PackClean call minpac#clean()
 endif
 
+
 " NOTE that the below configs are for both vim and neovim
 
 " set syntax off (a regexp based syntax highlighter and let 
@@ -41,12 +42,14 @@ endif
 " NOTE that this option does not necessarily affect tree-sitter
 " syntax highlighting. 
 " syntax=off
-
 let g:tokyonight_style = "night"
 colorscheme tokyonight
 
 set shiftwidth=2
 set smartindent
+
+" Excerpted from SO question - How do I deal with vim buffers when switching git branches?
+set autoread
 
 "set cursorline
 set cursorline
@@ -155,6 +158,13 @@ map <leader>et :tabe %%
 " Additionally, this allows you to expand the directory of the current file
 " anywhere at the command line by pressing %%
 
+let hrpath=expandcmd('~/hr/')
+cnoremap ^^ <C-R>=fnameescape(hrpath)<cr>
+map <leader>ew :e ^^
+map <leader>es :sp ^^
+map <leader>ev :vsp ^^
+map <leader>et :tabe ^^
+
 " Make a word SHOUT (uppercase) in insert mode 
 inoremap <leader>ws <esc>gUawea
 
@@ -192,13 +202,20 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " Terminal in vertical split mapping
 nnoremap <leader>t :vsplit \| terminal<cr>
 
+" Excerpted from Modern Vim Craft
+" Using the Current Neovim Instance as Your Preferred Text Editor
+if has('nvim') && executable('nvr')
+  let $VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+endif
+
 if has('nvim')
 " Terminal insert mode exit
   tnoremap <Esc> <C-\><C-n>
   tnoremap <C-v><Esc> <Esc>
 
-  highlight! link TermCursor Cursor
-  highlight! TermCursorNC guibg=red guifg=white ctermbg=1 ctermfg=15
+  " Excerpted from text Modern Vim Craft
+  " highlight! link TermCursor Cursor
+  " highlight! TermCursorNC guibg=red guifg=white ctermbg=1 ctermfg=15
 
 " switch buffers in terminal mode
   tnoremap <M-h> <c-\><c-n><c-w>h
@@ -206,16 +223,15 @@ if has('nvim')
   tnoremap <M-k> <c-\><c-n><c-w>k
   tnoremap <M-l> <c-\><c-n><c-w>l
 
+  " Excerpted from http://vimcasts.org/episodes/neovim-terminal-paste/
   " Terminal mode cursor color
   hi! TermCursorNC ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
   hi! TermCursor ctermfg=15 guifg=#fdf6e3 ctermbg=14 guibg=#93a1a1 cterm=NONE gui=NONE
 
-endif
+  " Excerpted from http://vimcasts.org/episodes/neovim-terminal-paste/
+  " Pasting in Terminal Mode
+  tnoremap <expr> <leader>cp '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
-" Excerpted from Modern Vim Craft
-" Using the Current Neovim Instance as Your Preferred Text Editor
-if has('nvim') && executable('nvr')
-  let $VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
 endif
 
 " REFER :help emmet-customize-key-mappings 
