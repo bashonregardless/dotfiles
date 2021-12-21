@@ -54,11 +54,20 @@ set autoread
 "set cursorline
 set cursorline
 
+" 
+set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
+
 "Define map leader
 let mapleader = ","
 " Don't Throw Away the Reverse Character Search Command
 " REFER Practical Vim Textbook
 noremap \ ,
+
+" on a conflicted file opens 3-way diff
+nnoremap <leader>sp :vert Gdiffsplit!<cr>
+
+" List conflicted files
+nnoremap <leader>lc :Git diff --name-only --diff-filter=U<cr>
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
