@@ -26,6 +26,7 @@ else
   call minpac#add('folke/tokyonight.nvim', {'type': 'start'})
   call minpac#add('mattn/emmet-vim', {'type': 'start'})
   call minpac#add('tpope/vim-projectionist', {'type': 'start'})
+  call minpac#add('vim-test/vim-test', {'type': 'start'})
 
   " In ex-mode call 
   " PluginUpdate		- to update plugin usgin minpac
@@ -55,7 +56,24 @@ set autoread
 set cursorline
 
 " 
-set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
+set statusline=
+
+" Read :h 'statusline', see usage of {%
+func! Stl_filename() abort
+  return fnamemodify(getcwd(), ':t')
+endfunc
+set statusline+=%3*\ pwd\ %{Stl_filename()}\ 
+
+set statusline+=%2*\ %<%t\ 
+set statusline+=%8*%<%m
+set statusline+=%1*\ %<%y\ 
+set statusline+=%0*\ %=%{exists('g:loaded_fugitive')?fugitive#statusline():''}\ 
+
+hi User0 guifg=#ffffff  guibg=#094afe
+hi User1 guifg=#59970d  guibg=#222222
+hi User2 guifg=#40a0ee  guibg=#222222
+hi User3 guifg=#ee8e40  guibg=#222222
+hi User8 guifg=#ffffff  guibg=#222222
 
 "Define map leader
 let mapleader = ","
@@ -63,11 +81,27 @@ let mapleader = ","
 " REFER Practical Vim Textbook
 noremap \ ,
 
-" on a conflicted file opens 3-way diff
-nnoremap <leader>sp :vert Gdiffsplit!<cr>
+" Git, on a conflicted file opens 3-way diff
+nnoremap <leader>gisp :vert Gdiffsplit!<cr>
 
-" List conflicted files
-nnoremap <leader>lc :Git diff --name-only --diff-filter=U<cr>
+" Git, List conflicted files
+nnoremap <leader>gilc :Git diff --name-only --diff-filter=U<cr>
+
+" Git, status shortcut
+nnoremap <leader>gis :Git status<cr>
+
+" Git, commit shortcut
+nnoremap <leader>gic :Git commit -m "[
+
+"Git, checkout shortcut
+nnoremap <leader>gih :Git checkout 
+
+"Git, switch shortcut
+nnoremap <leader>giw :Git switch - 
+
+
+" Mapping to add current file to arglist
+nnoremap <leader>aa :argadd %<cr>
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -275,4 +309,11 @@ let g:projectionist_heuristics = {
 		\}
 		\}
 		\}
+
+" Excerpted from book "Modern vim craft", Pg 67
+"let test#strategy = "dispatch"
+
+" TODO create a mapping for the below command to blame a particular line
+" number in vim in a file
+" Git log -L77,77:src/shared/work/work_config.js
 

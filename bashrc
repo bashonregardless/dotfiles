@@ -64,9 +64,9 @@ export FZF_DEFAULT_COMMAND='rg --files'
 # TODO put this command in separate file specific to macOS (or your machine)
 repos="/Volumes/Linux-CaseSensitive/repos/"
 
-#if [ -d "$compSC" ]; then
-#  source "${compSc}/dotfiles/hr_aliases"
-#fi
+if [ -d "$repos" ]; then
+  source "${repos}/dotfiles/hr_aliases"
+fi
 #
 #if [ -d "$compSC" ]; then
 #  alias cdcos="cd $compSc"
