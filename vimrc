@@ -62,18 +62,19 @@ set statusline=
 func! Stl_filename() abort
   return fnamemodify(getcwd(), ':t')
 endfunc
-set statusline+=%3*\ pwd\ %{Stl_filename()}\ 
+set statusline+=%3*\ %{Stl_filename()}\ 
 
+" Refer (https://stackoverflow.com/questions/5375240/a-more-useful-statusline-in-vim)
 set statusline+=%2*\ %<%t\ 
 set statusline+=%8*%<%m
 set statusline+=%1*\ %<%y\ 
 set statusline+=%0*\ %=%{exists('g:loaded_fugitive')?fugitive#statusline():''}\ 
 
 hi User0 guifg=#ffffff  guibg=#094afe
-hi User1 guifg=#59970d  guibg=#222222
-hi User2 guifg=#40a0ee  guibg=#222222
-hi User3 guifg=#ee8e40  guibg=#222222
-hi User8 guifg=#ffffff  guibg=#222222
+hi User1 guifg=#59970d  guibg=#000000
+hi User2 guifg=#40a0ee  guibg=#000000
+hi User3 guifg=#ee8e40  guibg=#000000
+hi User8 guifg=#ffffff  guibg=#000000
 
 "Define map leader
 let mapleader = ","
