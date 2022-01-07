@@ -58,7 +58,12 @@ set cursorline
 " 
 set statusline=
 
-" Read :h 'statusline', see usage of {%
+func! Bufcount() abort
+  return len(getbufinfo({'buflisted':1}))
+endfunc
+set statusline+=%1*\ %{Bufcount()}\ 
+
+" read :h 'statusline', see usage of {%
 func! Stl_filename() abort
   return fnamemodify(getcwd(), ':t')
 endfunc
@@ -66,15 +71,23 @@ set statusline+=%3*\ %{Stl_filename()}\
 
 " Refer (https://stackoverflow.com/questions/5375240/a-more-useful-statusline-in-vim)
 set statusline+=%2*\ %<%t\ 
+
 set statusline+=%8*%<%m
-set statusline+=%1*\ %<%y\ 
+
+func! Get_alternate_filename() abort
+  return fnamemodify(expand('#'), ':t')
+endfunc
+set statusline+=%1*\ %{Get_alternate_filename()}\ 
+
+" Show filetype in statusline
+"set statusline+=%1*\ %<%y\ 
 set statusline+=%0*\ %=%{exists('g:loaded_fugitive')?fugitive#statusline():''}\ 
 
-hi User0 guifg=#ffffff  guibg=#094afe
-hi User1 guifg=#59970d  guibg=#000000
-hi User2 guifg=#40a0ee  guibg=#000000
-hi User3 guifg=#ee8e40  guibg=#000000
-hi User8 guifg=#ffffff  guibg=#000000
+hi User0 guifg=#ffffff  guibg=#0e0e0e
+hi User1 guifg=#44730a  guibg=#0e0e0e
+hi User2 guifg=#7acd12  guibg=#0e0e0e
+hi User3 guifg=#6e360a  guibg=#0e0e0e
+hi User8 guifg=#ffffff  guibg=#0e0e0e
 
 "Define map leader
 let mapleader = ","
