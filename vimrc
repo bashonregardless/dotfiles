@@ -55,6 +55,9 @@ set autoread
 "set cursorline
 set cursorline
 
+" map save ':w' 
+nnoremap <C-S> :w<cr>
+
 " 
 set statusline=
 
@@ -113,9 +116,17 @@ nnoremap <leader>gih :Git checkout
 "Git, switch shortcut
 nnoremap <leader>giw :Git switch - 
 
+" Git view log of file added
+nnoremap <leader>gifa :Git log --diff-filter=A -- <C-r>%
+
+" Git diff with upstream file
+nnoremap <leader>gidu :vert Gdiffsplit origin/
 
 " Mapping to add current file to arglist
 nnoremap <leader>aa :argadd %<cr>
+
+" Mapping to add current file to arglist
+nnoremap <leader>ad :argdelete %<cr>
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -330,4 +341,31 @@ let g:projectionist_heuristics = {
 " TODO create a mapping for the below command to blame a particular line
 " number in vim in a file
 " Git log -L77,77:src/shared/work/work_config.js
+
+" Mapping to run command
+"
+" TestFile
+nnoremap ,tf :TestFile<cr>
+let test#neovim#term_position = "vert"
+
+" Automatic closing brackets for Vim
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
+inoremap (=<CR> ()<space>=><space>{<CR>}<ESC>O
+
+" Comment // mapping
+
+" Sort a list of files by last field. Field seperator '\'
+" SOLUTION: The idea is join the last field(column) of each line at the beginning of each of the lines (with a different delimiter, in this case I am using pipe "|")
+"
+" Then sort on 1st field with pipe ("|") delimited.
+"
+" Then sort on 1st field with pipe ("|") delimited.
+"
+" !awk 'BEGIN {FS="/"; OFS="|"}{print $NF,$0}' /Users/harsha/hr-non-repo-tasks/git_rebase_vs_cherry_pick/git_pull_rebase_origin_master_conflict_filenames.js | sort -t"|" -k1 | awk -F "|" '{print $2}'
 
