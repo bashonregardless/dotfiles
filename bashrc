@@ -62,16 +62,17 @@ fi
 export FZF_DEFAULT_COMMAND='rg --files'
 
 # TODO put this command in separate file specific to macOS (or your machine)
-repos="/Volumes/Linux-CaseSensitive/repos/"
+repos="$HOME/repos"
 
 if [ -d "$repos" ]; then
-  source "${repos}/dotfiles/hr_aliases"
+  source "${repos}/dotfiles/hr_scripts"
+  echo "sourced ${repos}/dotfiles/hr_scripts"
 fi
 #
 #if [ -d "$compSC" ]; then
 #  alias cdcos="cd $compSc"
 #fi
- alias cdrepo="cd $repos"
+alias cdrepo="cd $repos"
 
 echo "Exiting custom .bashrc file"
 
