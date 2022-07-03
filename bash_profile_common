@@ -19,11 +19,12 @@ fi
 # came with OS installation)
 #
 # Add $HOME/bin to $PATH for any binary that will be put in $HOME/bin
-# set PATH so it includes user's private bin if it exists
-
+#
 # This will create duplicate entry in PATH env var if ~/bin exists.
 # To avoid duplicate entry, PATH env var must be analyzed for exitstence
 # of entry before adding it.
+#
+# set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
@@ -46,6 +47,7 @@ fi
 
 # This piece of code is copied from original .profile file (the one that 
 # came with OS installation)
+#
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
@@ -74,6 +76,9 @@ fi
 # "it has to go to the BOTTOM of ~/.bashrc because there are some completions
 # that are overwriting",
 # as stated in github issue "cd tab completion not working".
+#
+# So, writing the code to source the 'fzf tab completion' below is equivanlent 
+# to writing the code below/after all the code in ~/.bashrc.
 #
 # fzf when installed using package manager, needs sourcing of the command
 # below make the "Fuzzy completion trigger" functionality work.
