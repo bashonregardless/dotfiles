@@ -73,7 +73,7 @@ fi
 # Note that for fzf tab completion to work properly, 
 # "it has to go to the BOTTOM of ~/.bashrc because there are some completions
 # that are overwriting",
-# as state in github issue "cd tab completion not working".
+# as stated in github issue "cd tab completion not working".
 #
 # fzf when installed using package manager, needs sourcing of the command
 # below make the "Fuzzy completion trigger" functionality work.

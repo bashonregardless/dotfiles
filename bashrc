@@ -65,8 +65,10 @@ export FZF_DEFAULT_COMMAND='rg --files'
 repos="$HOME/repos"
 
 if [ -d "$repos" ]; then
-  source "${repos}/dotfiles/hr_scripts"
-  echo "sourced ${repos}/dotfiles/hr_scripts"
+	if [ -e "${repos}/dotfiles/hr_scripts" -a -f  "${repos}/dotfiles/hr_scripts" ]; then
+		source "${repos}/dotfiles/hr_scripts"
+		echo "sourced ${repos}/dotfiles/hr_scripts"
+	fi
 fi
 #
 #if [ -d "$compSC" ]; then
