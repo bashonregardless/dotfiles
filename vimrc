@@ -15,7 +15,7 @@ else
   call minpac#add('k-takata/minpac', {'type': 'opt'})
   call minpac#add('junegunn/fzf', {'type': 'start'})
   call minpac#add('mhinz/neovim-remote', {'type': 'start'})
-  call minpac#add('neovim/nvim-lspconfig', {'type': 'opt'})
+  call minpac#add('neovim/nvim-lspconfig', {'type': 'start'})
   call minpac#add('nvim-treesitter/nvim-treesitter', {'type': 'start'})
   "call minpac#add('nvim-lua/plenary.nvim', {'type': 'start'})
   " call minpac#add('nvim-telescope/telescope.nvim', {'type': 'start'})
