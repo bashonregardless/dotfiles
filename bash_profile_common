@@ -72,7 +72,7 @@ export VIMDATA=~/.local/share/nvim
 #+ `~/.vim/pack/minpac/start/fzf/install --bin`.
 #+ In our case when we hit ctrl-p from vim, we
 #+ are prompted to install the binary.
-export PATH="$PATH:$VIMCONFIG/pack/bundle/start"
+export PATH="$PATH:$VIMCONFIG/pack/bundle/start/fzf/bin"
 
 # This piece of code is copied from original .profile file (the one that 
 # came with OS installation)
