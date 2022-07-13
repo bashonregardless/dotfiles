@@ -17,7 +17,7 @@ else
   " source fzf completion script from bash_profile,
   " which can come only after fzf is cloned. (not necessarily, but installed
   " too)
-  call minpac#add('junegunn/fzf', {'type': 'start'})
+  " call minpac#add('junegunn/fzf', {'type': 'start'})
   call minpac#add('mhinz/neovim-remote', {'type': 'start'})
   call minpac#add('neovim/nvim-lspconfig', {'type': 'start'})
   call minpac#add('nvim-treesitter/nvim-treesitter', {'type': 'start'})
