@@ -13,6 +13,10 @@ else
    call minpac#init()
   " Excerpted from book 'Modern Vim Craft' by Drew Neil
   call minpac#add('k-takata/minpac', {'type': 'opt'})
+  " Removing fzf as part of fzf because we also need to 
+  " source fzf completion script from bash_profile,
+  " which can come only after fzf is cloned. (not necessarily, but installed
+  " too)
   call minpac#add('junegunn/fzf', {'type': 'start'})
   call minpac#add('mhinz/neovim-remote', {'type': 'start'})
   call minpac#add('neovim/nvim-lspconfig', {'type': 'start'})

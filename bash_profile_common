@@ -58,7 +58,21 @@ export VIMCONFIG=~/.config/nvim
 export VIMDATA=~/.local/share/nvim
 
 # Excerpted textbook 'Modern Vim', Pg 24
-export PATH="$PATH:$VIMCONFIG/pack/bundle/start/fzf/bin"
+#* You are using minpac to manage vim plugins.
+#+ So this installs fzf in the path that minpac specifies.
+#+ At present it is ~/.vim/pack/minpac/start.
+#+ This changes the path that you should use when following
+#+ the steps to install fzf in book "Modern Vimcraft". In our case
+#+ path in the command on page 24 of "modern vimcraft" should be
+#+ `~/.vim/pack/minpac/start/fzf/install --bin`.
+#* Also that you are cloning fzf when you do a
+#+ `:call minpac#update()` in vim.
+#+ This clones the fzf repository but does not install it.
+#+ To install you can do 
+#+ `~/.vim/pack/minpac/start/fzf/install --bin`.
+#+ In our case when we hit ctrl-p from vim, we
+#+ are prompted to install the binary.
+export PATH="$PATH:$HOME/.vim/pack/minpac/start/fzf/bin"
 
 # This piece of code is copied from original .profile file (the one that 
 # came with OS installation)
@@ -84,8 +98,8 @@ fi
 # below make the "Fuzzy completion trigger" functionality work.
 #
 # Source fzf completion file
-if [ -f .config/nvim/pack/bundle/start/fzf/shell/completion.bash ]; then
-	source .config/nvim/pack/bundle/start/fzf/shell/completion.bash
+if [ -f $HOME/.vim/pack/minpac/start/fzf/shell/completion.bash ]; then
+	source $HOME/.vim/pack/minpac/start/fzf/shell/completion.bash
 fi
 
 echo "Exiting bash_profile_common"
