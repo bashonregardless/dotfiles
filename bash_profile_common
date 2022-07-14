@@ -3,17 +3,17 @@ echo "Inside bash_profile_common"
 # Excerpted SO Unix and Linux question "How can I set my default shell to start up tmux"
 #
 # Setup tmux shell
-if command -v tmux &> /dev/null && [[ "$-" == *i* ]] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-	echo "Condition to test for existence of tmux evaluated to false"
-	echo "Sleep for few moments, then exec tmux"
-	sleep 4
-	exec tmux
-	echo "This statement will never be printed"
-else 
-	echo
-	echo "Condition to test for existence of tmux evaluated to true"
-	echo
-fi
+# if command -v tmux &> /dev/null && [[ "$-" == *i* ]] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+# 	echo "Condition to test for existence of tmux evaluated to false"
+# 	echo "Sleep for few moments, then exec tmux"
+# 	sleep 4
+# 	exec tmux
+# 	echo "This statement will never be printed"
+# else 
+# 	echo
+# 	echo "Condition to test for existence of tmux evaluated to true"
+# 	echo
+# fi
 
 # This piece of code is copied from original .profile file (the one that 
 # came with OS installation)
@@ -86,6 +86,7 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 # Note that `source resourcefile` is the same as `. resourcefile`
 
+# [Refer : https://github.com/junegunn/fzf/issues/1812#issuecomment-573329933]
 # Note that for fzf tab completion to work properly, 
 # "it has to go to the BOTTOM of ~/.bashrc because there are some completions
 # that are overwriting",
@@ -97,9 +98,15 @@ fi
 # fzf when installed using package manager, needs sourcing of the command
 # below make the "Fuzzy completion trigger" functionality work.
 #
+#
 # Source fzf completion file
 if [ -f $VIMCONFIG/pack/bundle/start/fzf/shell/completion.bash ]; then
 	source $VIMCONFIG/pack/bundle/start/fzf/shell/completion.bash
+fi
+
+# For bash key bindings to work properly, source key-bindings.bash
+if [ -f $VIMCONFIG/pack/bundle/start/fzf/shell/key-bindings.bash ]; then
+  source $VIMCONFIG/pack/bundle/start/fzf/shell/key-bindings.bash
 fi
 
 echo "Exiting bash_profile_common"
