@@ -31,6 +31,13 @@ else
   call minpac#add('tpope/vim-projectionist', {'type': 'start'})
   call minpac#add('vim-test/vim-test', {'type': 'start'})
   call minpac#add('dense-analysis/ale', {'type': 'start'})
+
+  " The next 5 Plugin are for lsp completion/autocompletion
+  call minpac#add('hrsh7th/cmp-nvim-lsp', {'type': 'start'})
+  call minpac#add('hrsh7th/cmp-buffer', {'type': 'start'})
+  call minpac#add('hrsh7th/cmp-path', {'type': 'start'})
+  call minpac#add('hrsh7th/cmp-cmdline', {'type': 'start'})
+  call minpac#add('hrsh7th/nvim-cmp', {'type': 'start'})
   " call minpac#add('vim-airline/vim-airline')
 
   " In ex-mode call 
@@ -120,7 +127,7 @@ set statusline+=%{Get_alternate_filename()}\
 " See Point 2 in file all-regexp-ever-used in compSc repo
 func! Format_fugitive_statusline() abort
   let l:fugitive_statusline = exists('g:loaded_fugitive') ? fugitive#statusline() : ''
-  return substitute(fugitive_statusline, '\v\[.*\((.*)\)\]', '\1', '')
+  return '⎇.'.' '.substitute(fugitive_statusline, '\v\[.*\((.*)\)\]', '\1', '')
 endfunc
 set statusline+=%0*	" Switch to User0 highlight group
 set statusline+=\ 	" Space
@@ -137,6 +144,7 @@ hi User8 guifg=#ffffff  guibg=#0e0e0e
 
 "Define map leader
 let mapleader = ","
+
 " Don't Throw Away the Reverse Character Search Command
 " REFER Practical Vim Textbook
 noremap \ ,
@@ -288,7 +296,12 @@ nnoremap <C-p> :<C-u>FZF<CR>
 
 " Excerpted from ALE docs on github, section ' How can I use ALE and coc.nvim
 " together?'
-let g:ale_disable_lsp = 1
+""let g:ale_disable_lsp = 1
+
+" [Refer: https://github.com/dense-analysis/ale#2ii-fixing]
+" TODO : note that the 'ale_fixers' variable below is global.
+"+ You have to make it specific for filetype.
+let g:ale_fixers = ['prettier', 'eslint']
 
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
@@ -297,11 +310,11 @@ let g:ale_fix_on_save = 1
 
 " Excerpted from https://github.com/dense-analysis/ale/blob/master/doc/ale-typescript.txt
 " , section on tslint
-let g:ale_linters_ignore = {'typescript': ['tslint']}
+"let g:ale_linters_ignore = {'typescript': ['tslint']}
 
 " Excerpted from https://github.com/dense-analysis/ale/blob/master/doc/ale-typescript.txt
 " , section on tsserver
-let g:ale_typescript_tsserver_use_global=1
+"let g:ale_typescript_tsserver_use_global=1
 
 " Find files using Telescope command-line sugar.
 " Excerpted from telescope github page
