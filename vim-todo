@@ -1,0 +1,4 @@
+---> comment out a mapping, then source vimrc. The mapping still exist. Fix this.
+
+---> Vim fugitive highlight for messages. (messages that come on pressing mapping
+shortcuts like <leader>gis)

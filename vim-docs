@@ -1,0 +1,79 @@
+1. Why fzf anf fzf.vim plugins are not a part of package manager (minpac, in our case)?
+A. Removing fzf as part of minpac because we also need to 
+  source fzf completion script from bash_profile,
+  which can come only after fzf is cloned. (not necessarily, but installed
+  too)
+
+2. Regex based syntax highlighting v/s Parser based syntax highlighting?
+A. Set syntax off (a regexp based syntax highlighter and let 
+  tree sitter handle highlighting.
+  NOTE that this option does not necessarily affect tree-sitter
+  syntax highlighting. 
+
+3. How to map CAPS LOCK key in VIM?
+A. (REFER: Stackoverflow bookmarked: How to map CAPS LOCK key in VIM?)
+`
+au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Control'
+au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+`
+
+The first line maps escape to the caps lock key when you enter Vim, and the
+second line returns normal functionality to caps lock when you quit.
+This requires Linux with the xorg-xmodmap package installed.
+
+4. How to delete all trailing whitespace from each line, then replace three 
+  or more consecutive line endings with two line endings (a single blank line)?
+A.`nnoremap <leader>df :%s/\s\+$//e<cr> :%s/\n\{3,}/\r\r/e<cr>`
+  TODO move this to file all-regex-ever-used
+  
+5. " (Refer Practical Vim Pg101 Link to Vimcasts episode)
+" Easy expansion of active file directory
+"`nnoremap <leader>ew :e <C-R>=expand('%:p:h').'/'<CR>`
+" (Refer Practical Vim Pg101 Link to Vimcasts episode)
+" Easy expansion of active file directory in horizontal split
+"`nnoremap <leader>es :sp <C-R>=expand('%:p:h').'/'<CR>`
+" Easy expansion of active file directory in vertical split
+"`nnoremap <leader>ev :vsp <C-R>=expand('%:p:h').'/'<CR>`
+" Easy expansion of active file directory in new tab
+"`nnoremap <leader>et :tabe <C-R>=expand('%:p:h').'/'<CR>`
+" TODO Delete the above commented out para after you have understood
+" the concept of %, :p, and :h
+
+6. Projectionist mapping for directory structure.
+A. [Refer: See Greg Hurrell vim screencast video on youtube]
+
+  Dir structure:
+   |--Component
+     |--component.js
+     |--component.spec.js
+     |--component.scss
+
+   In vimrc:
+     `
+     let g:projectionist_heuristics = {
+       \"*": {
+	 \"*.js": {
+	   \"alternate": [
+	     \"{}.spec.js",
+	   \"{}.scss"
+	     \],
+	     \"type": "source"
+	       \},
+	 \"*.spec.js": {
+	   \  "alternate": [
+	     \"{}.scss",
+	   \"{}.js"
+	     \],
+	     \  "type": "test"
+	       \  },
+	 \"*.scss": {
+	   \  "alternate": [
+	     \"{}.js",
+	   \"{}.test.js"
+	     \],
+	     \  "type": "style"
+	       \}
+	 \}
+	 \}
+	 `
+
