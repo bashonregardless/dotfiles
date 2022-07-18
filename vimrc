@@ -79,6 +79,13 @@ set cursorline
 "set relative 'hybrid' line numbers
 set rnu
 
+"Define map leader
+let mapleader = ","
+
+" REFER Practical Vim Textbook
+"+ Don't Throw Away the Reverse Character Search Command
+noremap \ ,
+
 " map save ':w' 
 nnoremap <C-S> :w<cr>
 
@@ -149,6 +156,20 @@ set statusline+=%=	" Separation point between alignment sections. Each section w
 set statusline+=%{Format_fugitive_statusline()}\ 
 ""set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}\ 
 
+" Current line number
+func! Get_current_line_number() abort
+  return line(".")
+endfunc
+set statusline+=%0*	" Switch to User0 highlight group
+set statusline+=\ 	" Space
+set statusline+=%{Get_current_line_number()}
+set statusline+=/
+
+" Total lines number
+set statusline+=%0*	" Switch to User0 highlight group
+set statusline+=%L
+
+
 hi User0 guifg=#ffffff  guibg=#0e0e0e
 hi User1 guifg=#44730a  guibg=#0e0e0e
 hi User2 guifg=#44730a  guibg=#0e0e0e
@@ -167,13 +188,6 @@ nnoremap <leader>rg <cmd>Rg<cr>
 nnoremap <leader>fb <cmd>Buffers<cr>
 nnoremap <leader>fh <cmd>History:<cr>
 " }}}
-
-"Define map leader
-let mapleader = ","
-
-" REFER Practical Vim Textbook
-"+ Don't Throw Away the Reverse Character Search Command
-noremap \ ,
 
 " Git mappings ---------------------- {{{ 
 " Git, status shortcut
@@ -286,6 +300,9 @@ let g:ale_fix_on_save = 1
 if has('nvim') && executable('nvr')
   let $VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
 endif
+
+" Rename a buffer keeping alternate filename
+nnoremap <leader>rn :keepalt file 
 
 " Terminal settings and mapping ---------------------- {{{ 
 " Terminal in vertical split mapping

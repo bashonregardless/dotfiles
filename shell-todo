@@ -1,0 +1,3 @@
+---> nvm command not working in neovim terminal emulator.
+  The reason for this is given in file ./observations-during-shell-configuration.
+  Read it and fix the issue.
