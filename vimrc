@@ -63,8 +63,7 @@ endif
 let g:tokyonight_style = "night"
 colorscheme tokyonight
 let g:tokyonight_colors = {
-  \ 'comment': '#A9A9A9',
-  \ 'bg_float': "#282828",
+  \ 'comment': '#A9A9A9'
 \ }
 " }}}
 
@@ -168,6 +167,11 @@ set statusline+=/
 " Total lines number
 set statusline+=%0*	" Switch to User0 highlight group
 set statusline+=%L
+set statusline+=\ 
+
+" Add %{ObsessionStatus()} to 'statusline', 'tabline', or 'titlestring' to get
+"+ an indicator when Obsession is active or paused.
+set statusline+=%{ObsessionStatus()}
 
 
 hi User0 guifg=#ffffff  guibg=#0e0e0e
@@ -355,6 +359,9 @@ let g:user_emmet_leader_key = '-'
 		     \  },
 		     \}
 		     \}
+
+" Close quickfix window mapping
+nnoremap <leader>c :cclose<cr>
 
 " Excerpted from book "Modern vim craft", Pg 67
 "let test#strategy = "dispatch"

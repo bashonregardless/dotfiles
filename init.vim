@@ -3,6 +3,9 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vim/vimrc
 
+lua <<EOF
+  require'lspconfig'.vimls.setup{}
+EOF
 
 " Copied from github repo nvim-lspconfig by mjlbach
 lua << EOF
@@ -11,6 +14,16 @@ local nvim_lsp = require('lspconfig')
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+  -- [Refer: vim-docs file point 7]
+  vim.o.updatetime = 250
+  -- vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+
+  -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
+  -- [Refer: vim-docs file point 7]
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    border = "rounded",
+    })
+
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -41,7 +54,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'tsserver' }
+local servers = { 'tsserver', 'vimls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -141,3 +154,4 @@ lua <<EOF
     capabilities = capabilities
   }
 EOF
+

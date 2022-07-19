@@ -76,4 +76,7 @@ A. [Refer: See Greg Hurrell vim screencast video on youtube]
 	 \}
 	 \}
 	 `
-
+7. How to use border with vim.lsp.buf.hover()? Also, how to do nvim-lspconfig UI Customization in general?
+A. [Refer: https://www.reddit.com/r/neovim/comments/rjvrfp/how_to_use_border_with_vimlspbufhover/]
+  [Refer: https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization]
+  [Refer: https://github.com/jdhao/nvim-config/blob/master/lua/config/lsp.lua#L210]
