@@ -363,6 +363,9 @@ let g:user_emmet_leader_key = '-'
 " Close quickfix window mapping
 nnoremap <leader>c :cclose<cr>
 
+" TODO paste the copied text at last ponint of insertion
+"nnoremap <leader>pi gi<C-R>
+
 " Excerpted from book "Modern vim craft", Pg 67
 "let test#strategy = "dispatch"
 

@@ -2,3 +2,14 @@
 
 ---> Vim fugitive highlight for messages. (messages that come on pressing mapping
 shortcuts like <leader>gis)
+
+---> Bring color, unicode, etc to the output echoed below vim's command line?
+A. Last time your search stopped at this answer: [Refer : https://stackoverflow.com/a/22977440/11320006]
+
+  NOTE: [Refer: http://vimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/]
+  If a command generates a lot of output then run it from the terminal.
+  Take `Git log` for example, git automatically pipes the output into a pager making
+  it easy to read whereas if you run `Git log` through fugitive, vim echoes the output
+  as a stream which is not so easy to work with.
+  On the other hand commands that don't generate a lot of output are fair game for
+  running with fugitives git command. Like `Git status` or `Git checkout`
