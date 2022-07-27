@@ -76,6 +76,7 @@ set autoread
 set cursorline
 
 "set relative 'hybrid' line numbers
+set nu
 set rnu
 
 "Define map leader
@@ -155,14 +156,14 @@ set statusline+=%=	" Separation point between alignment sections. Each section w
 set statusline+=%{Format_fugitive_statusline()}\ 
 ""set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}\ 
 
-" Current line number
-func! Get_current_line_number() abort
-  return line(".")
-endfunc
-set statusline+=%0*	" Switch to User0 highlight group
-set statusline+=\ 	" Space
-set statusline+=%{Get_current_line_number()}
-set statusline+=/
+"" Current line number
+"func! Get_current_line_number() abort
+"  return line(".")
+"endfunc
+"set statusline+=%0*	" Switch to User0 highlight group
+"set statusline+=\ 	" Space
+"set statusline+=%{Get_current_line_number()}
+"set statusline+=/
 
 " Total lines number
 set statusline+=%0*	" Switch to User0 highlight group
@@ -276,7 +277,7 @@ cnoremap ^^ <C-R>=fnameescape(transcarent_path)<cr>
 nnoremap <leader>rew :e <C-R>=fnameescape(transcarent_path)<cr>
 nnoremap <leader>res :sp <C-R>=fnameescape(transcarent_path)<cr>
 nnoremap <leader>rev :vsp <C-R>=fnameescape(transcarent_path)<cr>
-nnoremap <leader>ret :tabe <C-R>=fnameescape(transcarent_path)<cr>
+nnoremap <leader>ret :tabe <C-R>=fnameescape(transcarent_path)<cr> \| :tcd <C-R>=fnameescape(transcarent_path)<cr>
 " }}}
 
 " Fold shortcuts
