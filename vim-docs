@@ -80,3 +80,26 @@ A. [Refer: See Greg Hurrell vim screencast video on youtube]
 A. [Refer: https://www.reddit.com/r/neovim/comments/rjvrfp/how_to_use_border_with_vimlspbufhover/]
   [Refer: https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization]
   [Refer: https://github.com/jdhao/nvim-config/blob/master/lua/config/lsp.lua#L210]
+
+8. How to implement extend selection/expand selection scope?
+A. [Refer: https://superuser.com/a/586081/1707829]
+  To select a curly-braced block do: v+a+{, to select the enclosing block repeat a+{. 
+  Note that you can choose to only select the contents of the braces by using i instead of a
+
+  These commands, as many others in vim, are built up by an action followed by a text-object,
+  where the text-object can be prepended by a number to include more objects affected 
+  by the action. So you could also delete the object by replacing v by d or correct 
+  it with c, etc.
+
+9. How to put current line at top/center/bottom of screen in vim?
+A. [Refer: https://unix.stackexchange.com/a/110252/395825]
+  zEnter or zt puts current line to top of screen
+
+  z. or zz puts current line to center of screen
+  
+  z- or zb puts current line to bottom of screen
+  
+  (zEnter, z., and z- puts the cursor in the first non blank column. zt, zz, and zb leaves the cursor in the current column)
+
+  More info about scrolling at http://vimdoc.sourceforge.net/htmldoc/scroll.html or
+  in vim type :help scroll-cursor

@@ -43,6 +43,8 @@ else
   call minpac#add('hrsh7th/cmp-path', {'type': 'start'})
   call minpac#add('hrsh7th/cmp-cmdline', {'type': 'start'})
   call minpac#add('hrsh7th/nvim-cmp', {'type': 'start'})
+  call minpac#add('hrsh7th/cmp-vsnip', {'type': 'start'})
+  call minpac#add('hrsh7th/vim-vsnip', {'type': 'start'})
   " }}}
 
 
@@ -67,6 +69,14 @@ let g:tokyonight_colors = {
 \ }
 " }}}
 
+" TODO The autocmd below should change the colorscheme on the active buffers
+"+ to make it more obvious
+"augroup change_color_scheme_on_buf_focus_change
+"    autocmd!
+"    autocmd BufLeave * let b:tokyonight_style = "storm" | :colorscheme tokyonight
+"    autocmd BufEnter * let b:tokyonight_style = "night" | :colorscheme tokyonight
+"augroup END
+
 set shiftwidth=2
 set smartindent
 
@@ -78,6 +88,24 @@ set cursorline
 "set relative 'hybrid' line numbers
 set nu
 set rnu
+
+" Excerpted from [Refer : https://jeffkreeftmeijer.com/vim-number/]
+" Relative line numbers are helpful when moving around in normal mode, but absolute 
+"+ line numbers are more suited for insert mode. When the buffer doesn’t have focus,
+"+ it’d also be more useful to show absolute line numbers. For example, when running
+"+ tests from a separate terminal split, it’d make more sense to be able to see which
+"+ test is on which absolute line number.
+" TODO On leaving insert mode by pressing <c-c>, the below command does not
+"+ toggle properly. Fix it!
+"+ It does work on leaving insert mode with 'fj'.
+"+ A. CTRL-C: Quit insert mode, go back to Normal mode. Do not check for abbreviations.
+"+ Does not trigger the InsertLeave autocommand event. 
+"+ STOP using <C-c>, instead use <C-[> to leave insert mode.
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
 
 "Define map leader
 let mapleader = ","
@@ -174,6 +202,9 @@ set statusline+=\
 "+ an indicator when Obsession is active or paused.
 set statusline+=%{ObsessionStatus()}
 
+" TODO when the space in statusline is limited, prefer name of current file
+" and not alternate file"
+
 
 hi User0 guifg=#ffffff  guibg=#0e0e0e
 hi User1 guifg=#44730a  guibg=#0e0e0e
@@ -204,6 +235,9 @@ nnoremap <leader>gc :Git commit -m "[
 "Git, checkout shortcut
 nnoremap <leader>gh :Git checkout 
 
+"Git, switch shortcut
+nnoremap <leader>gw :Git switch -<cr>
+
 " Git, on a conflicted file opens 3-way diff
 nnoremap <leader>gp :vert Gdiffsplit!<cr>
 
@@ -215,6 +249,18 @@ nnoremap <leader>gfa :Git log --diff-filter=A -- <C-r>%
 
 " Git diff with upstream file
 nnoremap <leader>gdu :vert Gdiffsplit origin/
+
+" Git log to get commits only for a specific branch
+nnoremap <leader>gcl :Git cherry -v [ develop ] [ mybranch ]
+" This would show all of the commits which are contained within mybranch, 
+"+ but NOT in develop. If you leave off the last option (mybranch),
+"+ it will compare the current branch instead.
+
+" View the change history of a file 
+nnoremap <leader>gfh :Git log -p -- [filename]
+
+" How to create a local branch from an existing remote branch?
+nnoremap <leader>gco :Git checkout -b [new_branch_name] [remote_name]/[remote_branch_name]
 " }}}
 
 " Split navigations ---------------------- {{{ 
@@ -272,11 +318,14 @@ nnoremap <leader>et :tabe <C-R>=fnameescape(expand('%:h')).'/'<cr>
 " Expansions of transcarent directory by pressing ^^.
 "+ This helps to change current directory.
 "+ All the search will now be performed relative to the changed directory.
-let transcarent_path=expandcmd('~/transcarent/')
+let transcarent_path=expandcmd('~/Developer/transcarent/')
 cnoremap ^^ <C-R>=fnameescape(transcarent_path)<cr>
 nnoremap <leader>rew :e <C-R>=fnameescape(transcarent_path)<cr>
 nnoremap <leader>res :sp <C-R>=fnameescape(transcarent_path)<cr>
 nnoremap <leader>rev :vsp <C-R>=fnameescape(transcarent_path)<cr>
+" TODO Change the below mapping so that user is proompted for the path name
+"+ once, and remove the hardcoded value, or make a different mappping for
+"+ transcarent path.
 nnoremap <leader>ret :tabe <C-R>=fnameescape(transcarent_path)<cr> \| :tcd <C-R>=fnameescape(transcarent_path)<cr>
 " }}}
 
@@ -341,7 +390,7 @@ endif
 " This might not necessarily be a good mapping, since <leader>=','
 " TODO This is indeed causing problem with mappings in emmet vim, see more examples
 " in github doc
-let g:user_emmet_leader_key = '-'
+"let g:user_emmet_leader_key = '-'
 
 " See Greg Hurrell vim screencast video on youtube
      let g:projectionist_heuristics = {
@@ -377,18 +426,18 @@ nnoremap <leader>c :cclose<cr>
 " Mapping to run command
 "
 " TestFile
-nnoremap ,tf :TestFile<cr>
+nnoremap <leader>tf :TestFile<cr>
 let test#neovim#term_position = "vert"
 
 " Automatic closing brackets for Vim
-""inoremap " ""<left>
-""inoremap ' ''<left>
-""inoremap ( ()<left>
-""inoremap [ []<left>
-""inoremap { {}<left>
-""inoremap {<CR> {<CR>}<ESC>O
-""inoremap {;<CR> {<CR>};<ESC>O
-""inoremap (=<CR> ()<space>=><space>{<CR>}<ESC>O
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
+inoremap (=<CR> ()<space>=><space>{<CR>}<ESC>O
 
 " Comment // mapping
 
@@ -409,24 +458,49 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 iab imr -- import React from 'react'
 
 iab foco " ---------------------- {{{
+" TODO When "Automatic closing brackets for Vim" mapping is on, an additional
+"+ closing bracket is created. Fix it!
+"iab ref [Refer: ]
 
 " [Refer: https://learnvimscriptthehardway.stevelosh.com/chapters/15.html]
 "+ Operator pending mapping:
 "+ Delete the contents inside of the next parentheses and place you in 
 "+ insert mode between them.
+" TODO if the bracket is already empty something strange happens. Fix it.
+"+ If the next Brackets contain text, then that text is deleted and user
+"+ is put in insertion mode, else the similar bracker parent bracket is
+"+ affected.
+"+ Test on file nested-comments.js
 onoremap in( :<c-u>normal! f(vi(<cr>
+onoremap in[ :<c-u>normal! f[vi[<cr>
+onoremap an( :<c-u>normal! f(va(<cr>
+onoremap an[ :<c-u>normal! f[va[<cr>
 " Delete the contents inside of the last(previous) parentheses and place you in 
 "+ insert mode between them.
-onoremap il( :<c-u>normal! F)vi(<cr>
+onoremap il( :<c-u>normal! f)vi(<cr>
+onoremap il[ :<c-u>normal! f[vi[<cr>
+onoremap al( :<c-u>normal! f(va(<cr>
+onoremap al[ :<c-u>normal! f[va[<cr>
+
+onoremap il" :<c-u>normal! F"vi"<cr>
+onoremap in" :<c-u>normal! f"vi"<cr>
+onoremap al" :<c-u>normal! F"va"<cr>
+onoremap an" :<c-u>normal! f"va"<cr>
+
+" open child block after matching braces
+nnoremap <leader>on{ f{a<c-j><esc>O
+nnoremap <leader>on( f(a<c-j><esc>O
+nnoremap <leader>ol{ F{a<c-j><esc>O
+nnoremap <leader>ol( F(a<c-j><esc>O
+"open child block after matching braces
+inoremap <leader>o <esc>i<C-j><esc>ko
+
 
 " Mapping to add current file to arglist
 nnoremap <leader>aa :argadd %<cr>
 
 " Mapping to add current file to arglist
 nnoremap <leader>ad :argdelete %<cr>
-
-"open child block after matching braces
-inoremap <leader>o <esc>i<C-j><esc>ko
 
 " Navigate arglist
 nnoremap ]a :next<CR>
@@ -442,4 +516,11 @@ nnoremap <leader>ai gg=G<C-O>
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
-nnoremap <silent> ]B :blast<CR>
+
+
+" Try ":help [[" and search for "map" in that text.
+" In visual line mode [[ not working correctly.
+:nnoremap [[ ?{<CR>w99[{
+:nnoremap ][ /}<CR>b99]}
+:nnoremap ]] j0[[%/{<CR>
+:nnoremap [] k$][%?}<CR>

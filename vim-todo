@@ -1,3 +1,5 @@
+---> Learn Lua
+
 ---> comment out a mapping, then source vimrc. The mapping still exist. Fix this.
 
 ---> Vim fugitive highlight for messages. (messages that come on pressing mapping
@@ -13,3 +15,26 @@ A. Last time your search stopped at this answer: [Refer : https://stackoverflow.
   as a stream which is not so easy to work with.
   On the other hand commands that don't generate a lot of output are fair game for
   running with fugitives git command. Like `Git status` or `Git checkout`
+
+---> Refactoring code - Configure and learn to use lsp replace feature
+
+---> Practice "Jumping to the start and end of a code block"
+  [Refer: https://vim.fandom.com/wiki/Jumping_to_the_start_and_end_of_a_code_block#:~:text=To%20jump%20to%20the%20end,parenthesis%20use%20the%20%5D)%20command.] 
+
+  The mapping below do not work properly, nor does its modified version given in ':h [['
+  [[ : sections backward or to the previous '{' in the first column.
+  ]] : sections forward or to the next '{' in the first column.
+  [] : sections backward or to the previous '}' in the first column.
+  ][ : sections forward or to the next '}' in the first column.
+
+  [Refer: https://learnvimscriptthehardway.stevelosh.com/chapters/50.html]
+  [Refer: https://learnvimscriptthehardway.stevelosh.com/chapters/51.html]
+
+  Practice in file 'nested-comments.js'
+
+---> Learn features provided by 'hrsh7th/*' Plugins. Powerful LSP completions and other features similar to nvim.
+
+---> Learn vim folding. Learn to fold javascript code
+  [Refer: https://learnvimscriptthehardway.stevelosh.com/chapters/48.html]
+  [Refer: https://learnvimscriptthehardway.stevelosh.com/chapters/49.html] 
+

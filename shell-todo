@@ -1,3 +1,11 @@
 ---> nvm command not working in neovim terminal emulator.
   The reason for this is given in file ./observations-during-shell-configuration.
   Read it and fix the issue.
+
+---> command not found after yarn global install `yarn global add yalc`. Why?
+A. [Refer: https://stackoverflow.com/a/40333409/11320006]
+  You should add export PATH="$PATH:$(yarn global bin)" to your ~/.bash_profile 
+  or whatever you use. It would solve the issue.
+
+  Depending on how you installed it, Yarn's global folder varies for some reason.
+  You can follow this issue here.
