@@ -226,6 +226,9 @@ nnoremap <leader>fh <cmd>History:<cr>
 " }}}
 
 " Git mappings ---------------------- {{{ 
+" Bring up Git in command mode
+nnoremap <leader>gg :Git 
+
 " Git, status shortcut
 nnoremap <leader>gs :Git status<cr>
 
@@ -472,20 +475,20 @@ iab foco " ---------------------- {{{
 "+ affected.
 "+ Test on file nested-comments.js
 onoremap in( :<c-u>normal! f(vi(<cr>
-onoremap in[ :<c-u>normal! f[vi[<cr>
 onoremap an( :<c-u>normal! f(va(<cr>
-onoremap an[ :<c-u>normal! f[va[<cr>
+onoremap il( :<c-u>normal! F(vi(<cr>
+onoremap al( :<c-u>normal! F(va(<cr>
 " Delete the contents inside of the last(previous) parentheses and place you in 
 "+ insert mode between them.
-onoremap il( :<c-u>normal! f)vi(<cr>
-onoremap il[ :<c-u>normal! f[vi[<cr>
-onoremap al( :<c-u>normal! f(va(<cr>
-onoremap al[ :<c-u>normal! f[va[<cr>
+onoremap in[ :<c-u>normal! f[vi[<cr>
+onoremap an[ :<c-u>normal! f[va[<cr>
+onoremap il[ :<c-u>normal! F[vi[<cr>
+onoremap al[ :<c-u>normal! F[va[<cr>
 
-onoremap il" :<c-u>normal! F"vi"<cr>
 onoremap in" :<c-u>normal! f"vi"<cr>
-onoremap al" :<c-u>normal! F"va"<cr>
 onoremap an" :<c-u>normal! f"va"<cr>
+onoremap il" :<c-u>normal! F"vi"<cr>
+onoremap al" :<c-u>normal! F"va"<cr>
 
 " open child block after matching braces
 nnoremap <leader>on{ f{a<c-j><esc>O
@@ -524,3 +527,49 @@ nnoremap <silent> [B :bfirst<CR>
 :nnoremap ][ /}<CR>b99]}
 :nnoremap ]] j0[[%/{<CR>
 :nnoremap [] k$][%?}<CR>
+
+augroup highlight_yank
+  autocmd!
+  au TextYankPost * silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=700})
+augroup END
+
+" TODO
+"function! IndentLevel(lnum)
+"    return indent(a:lnum) / &shiftwidth
+"endfunction
+"function! NextNonBlankLine(lnum)
+"    let numlines = line('$')
+"    let current = a:lnum + 1
+"
+"    while current <= numlines
+"        if getline(current) =~? '\v\S'
+"            return current
+"        endif
+"
+"        let current += 1
+"    endwhile
+"
+"    return -2
+"endfunction
+"function! GetPotionFold(lnum)
+"    if getline(a:lnum) =~? '\v^\s*$'
+"        return '-1'
+"    endif
+"
+"    let this_indent = IndentLevel(a:lnum)
+"    let next_indent = IndentLevel(NextNonBlankLine(a:lnum))
+"
+"    if next_indent == this_indent
+"        return this_indent
+"    elseif next_indent < this_indent
+"        return this_indent
+"    elseif next_indent > this_indent
+"        return '>' . next_indent
+"    endif
+"endfunction
+"
+"set foldexpr=GetPotionFold(v:lnum)
+
+set foldlevelstart=1
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()

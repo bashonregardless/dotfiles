@@ -8,7 +8,7 @@ shortcuts like <leader>gis)
 ---> Bring color, unicode, etc to the output echoed below vim's command line?
 A. Last time your search stopped at this answer: [Refer : https://stackoverflow.com/a/22977440/11320006]
 
-  NOTE: [Refer: http://vimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/]
+i  NOTE: [Refer: http://lsjslvimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/]
   If a command generates a lot of output then run it from the terminal.
   Take `Git log` for example, git automatically pipes the output into a pager making
   it easy to read whereas if you run `Git log` through fugitive, vim echoes the output
@@ -38,3 +38,9 @@ A. Last time your search stopped at this answer: [Refer : https://stackoverflow.
   [Refer: https://learnvimscriptthehardway.stevelosh.com/chapters/48.html]
   [Refer: https://learnvimscriptthehardway.stevelosh.com/chapters/49.html] 
 
+---> Integrate what is given in [Refer: https://learnvimscriptthehardway.stevelosh.com/chapters/49.html],
+  which is "fold the first line of a block with its contents" with `set foldexpr=nvim_treesitter#foldexpr()`
+
+  In the present state when we use only `set foldexpr=nvim_treesitter#foldexpr()`, the enitre fold in folded and
+  not "fold the first line of a block with its contents". See Reference link. 
+   

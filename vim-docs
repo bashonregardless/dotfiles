@@ -93,13 +93,22 @@ A. [Refer: https://superuser.com/a/586081/1707829]
 
 9. How to put current line at top/center/bottom of screen in vim?
 A. [Refer: https://unix.stackexchange.com/a/110252/395825]
-  zEnter or zt puts current line to top of screen
+  `zEnter` or zt puts current line to top of screen
 
-  z. or zz puts current line to center of screen
+  `z.` or `zz` puts current line to center of screen
   
-  z- or zb puts current line to bottom of screen
+  `z-` or `zb` puts current line to bottom of screen
   
-  (zEnter, z., and z- puts the cursor in the first non blank column. zt, zz, and zb leaves the cursor in the current column)
+  (`zEnter`, `z.,` and `z-` puts the cursor in the first non blank column. `zt`, `zz`, and `zb` leaves the cursor in the current column)
 
   More info about scrolling at http://vimdoc.sourceforge.net/htmldoc/scroll.html or
   in vim type :help scroll-cursor
+
+10. Vim: Go to Beginning/End of Next Method
+A. [Refer: https://stackoverflow.com/a/12128868/11320006]
+  Vim has `[m` , `]m` built in "for Java or similar structured language".
+
+11. To switch from vertical split to horizontal split fast in Vim. What do <c-W> followed by H, J, K, L mean?
+A. [Refer : https://stackoverflow.com/a/7982215/11320006]
+   will move the current window to the far left, bottom, top or right respectively like normal cursor navigation.
+
