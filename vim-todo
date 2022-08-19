@@ -44,3 +44,16 @@ i  NOTE: [Refer: http://lsjslvimcasts.org/episodes/fugitive-vim---a-complement-t
   In the present state when we use only `set foldexpr=nvim_treesitter#foldexpr()`, the enitre fold in folded and
   not "fold the first line of a block with its contents". See Reference link. 
    
+
+
+Wednesday 17 August 2022 07:53:14 PM IST
+
+---> Seperation of Concern for vim, vimrc. Orgainizing vim script and files. Learn from 
+
+  Links:
+  - Dot files: https://github.com/wincent/wincent
+  - 'tabline' setting: https://github.com/wincent/wincent/blob/b6d190755b52091a7d1505c5ff3346688880ca73/roles/dotfiles/files/.vim/plugin/tabline.vim
+  -  helper functions: https://github.com/wincent/wincent/blob/b6d190755b52091a7d1505c5ff3346688880ca73/roles/dotfiles/files/.vim/autoload/wincent/tabline.vim
+
+  Debug why the Seperation of concern created, i.e, tabline is not getting changed though created
+  files as given in the above links.

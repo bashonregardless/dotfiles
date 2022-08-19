@@ -65,7 +65,7 @@ endif
 let g:tokyonight_style = "night"
 colorscheme tokyonight
 let g:tokyonight_colors = {
-  \ 'comment': '#A9A9A9'
+  \ 'comment': '#A9A9A9',
 \ }
 " }}}
 
@@ -573,3 +573,106 @@ augroup END
 set foldlevelstart=1
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
+
+""" see vim-todo
+""function WincentTablineLabel(n) abort
+""  let l:buflist=tabpagebuflist(a:n)
+""  let l:winnr=tabpagewinnr(a:n)
+""  return pathshorten(fnamemodify(bufname(buflist[winnr - 1]), ':~:.'))
+""endfunction
+""
+""" Cleaner/simpler clone of the built-in tabline, but without the window
+""" counts, the modified flag, or the close widget.
+""function WincentTablineLine() abort
+""  let l:line=''
+""  let l:current=tabpagenr()
+""  for l:i in range(1, tabpagenr('$'))
+""    if l:i == l:current
+""      let l:line.='%#TabLineSel#'
+""    else
+""      let l:line.='%#TabLine#'
+""    end
+""    let l:line.='%' . i . 'T' " Starts mouse click target region.
+""    let l:line.=' %{WincentTablineLabel(' . i . ')} '
+""  endfor
+""  let l:line.='%#TabLineFill#'
+""  let l:line.='%T' " Ends mouse click target region(s).
+""  return l:line
+""endfunction
+""
+""set tabline=%!WincentTablineLine()
+
+" NOTE highlight example:
+"+ cterm option colors dont work. What works is guibg, guifg, gui
+" This won't work
+hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
+" This works
+hi TabLine ctermfg=14 guifg=Gray guibg=Black
+" This won't work
+hi TabLineSel ctermfg=Red ctermbg=Yellow
+
+"''set tabline=%!MyTabLine()  " custom tab pages line
+"function! MyTabLine()
+"  let s = ''
+"  " loop through each tab page
+"  for i in range(tabpagenr('$'))
+"    if i + 1 == tabpagenr()
+"      let s .= '%#TabLineSel#'
+"    else
+"      let s .= '%#TabLine#'
+"    endif
+"    if i + 1 == tabpagenr()
+"      lgrep s .= '%#TabLineSel#' " WildMenu
+"    else
+"      let s .= '%#Title#'
+"    endif
+"    " set the tab page number (for mouse clicks)
+"    let s .= '%' . (i + 1) . 'T '
+"    " set page number string
+"    let s .= i + 1 . ''
+"    " get buffer names and statuses
+"    let n = ''  " temp str for buf names
+"    let m = 0   " &modified counter
+"    let buflist = tabpagebuflist(i + 1)
+"    " loop through each buffer in a tab
+"    for b in buflist
+"      if getbufvar(b, "&buftype") == 'help'
+"        " let n .= '[H]' . fnamemodify(bufname(b), ':t:s/.txt$//')
+"      elseif getbufvar(b, "&buftype") == 'quickfix'
+"        " let n .= '[Q]'
+"      elseif getbufvar(b, "&modifiable")
+"        let n .= fnamemodify(bufname(b), ':t') . ', ' " pathshorten(bufname(b))
+"      endif
+"      if getbufvar(b, "&modified")
+"        let m += 1
+"      endif
+"    endfor
+"    " let n .= fnamemodify(bufname(buflist[tabpagewinnr(i + 1) - 1]), ':t')
+"    let n = substitute(n, ', $', '', '')
+"    " add modified label
+"    if m > 0
+"      let s .= '+'
+"      " let s .= '[' . m . '+]'
+"    endif
+"    if i + 1 == tabpagenr()
+"      let s .= ' %#TabLineSel#'
+"    else
+"      let s .= ' %#TabLine#'
+"    endif
+"    " add buffer names
+"    if n == ''
+"      let s.= '[New]'
+"    else
+"      let s .= n
+"    endif
+"    " switch to no underlining and add final space
+"    let s .= ' '
+"  endfor
+"  let s .= '%#TabLineFill#%T'
+"  " right-aligned close button
+"  " if tabpagenr('$') > 1
+"  "   let s .= '%=%#TabLineFill#%999Xclose'
+"  " endif
+"  return s
+"endfunction
+

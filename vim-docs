@@ -112,3 +112,19 @@ A. [Refer: https://stackoverflow.com/a/12128868/11320006]
 A. [Refer : https://stackoverflow.com/a/7982215/11320006]
    will move the current window to the far left, bottom, top or right respectively like normal cursor navigation.
 
+12. How do I copy a file in netrw?
+A. [Refer: https://vi.stackexchange.com/a/6264/26997]
+
+  MARKED FILES: COPYING                                           netrw-mc {{{2
+	      (See netrw-mf and netrw-mr for how to mark files)
+			(Uses the global marked file list)
+
+  Select a target directory with mt (netrw-mt).  Then change directory,
+  select file(s) (see netrw-mf), and press "mc".  The copy is done
+  from the current window (where one does the mf) to the target.
+
+  If one does not have a target directory set with netrw-mt, then netrw
+  will query you for a directory to copy to.
+
+  One may also copy directories and their contents (local only) to a target
+  directory.
