@@ -34,17 +34,17 @@ else
   call minpac#add('mattn/emmet-vim', {'type': 'start'})
   call minpac#add('tpope/vim-projectionist', {'type': 'start'})
   call minpac#add('vim-test/vim-test', {'type': 'start'})
-  call minpac#add('dense-analysis/ale', {'type': 'start'})
+  ""call minpac#add('dense-analysis/ale', {'type': 'start'})
 
   " Autocomplete Plugins ---------------------- {{{
   " Plugins are for lsp completion/autocompletion
-  call minpac#add('hrsh7th/cmp-nvim-lsp', {'type': 'start'})
-  call minpac#add('hrsh7th/cmp-buffer', {'type': 'start'})
-  call minpac#add('hrsh7th/cmp-path', {'type': 'start'})
-  call minpac#add('hrsh7th/cmp-cmdline', {'type': 'start'})
-  call minpac#add('hrsh7th/nvim-cmp', {'type': 'start'})
-  call minpac#add('hrsh7th/cmp-vsnip', {'type': 'start'})
-  call minpac#add('hrsh7th/vim-vsnip', {'type': 'start'})
+ "" call minpac#add('hrsh7th/cmp-nvim-lsp', {'type': 'start'})
+ "" call minpac#add('hrsh7th/cmp-buffer', {'type': 'start'})
+ "" call minpac#add('hrsh7th/cmp-path', {'type': 'start'})
+ "" call minpac#add('hrsh7th/cmp-cmdline', {'type': 'start'})
+ "" call minpac#add('hrsh7th/nvim-cmp', {'type': 'start'})
+ "" call minpac#add('hrsh7th/cmp-vsnip', {'type': 'start'})
+ "" call minpac#add('hrsh7th/vim-vsnip', {'type': 'start'})
   " }}}
 
 
@@ -124,23 +124,23 @@ nnoremap <C-S> :w<cr>
 " [Refer : https://stackoverflow.com/questions/5375240/a-more-useful-statusline-in-vim]
 set statusline=
 
-func! Bufcount() abort
-  return len(getbufinfo({'buflisted':1}))
-endfunc
-set statusline+=%1*	" Switch to User1 highlight group
-set statusline+=\ 	" Space
-set statusline+=%{Bufcount()}\ 
+"func! Bufcount() abort
+"  return len(getbufinfo({'buflisted':1}))
+"endfunc
+"set statusline+=%1*	" Switch to User1 highlight group
+"set statusline+=\ 	" Space
+"set statusline+=%{Bufcount()}\ 
 
-" Function Get_tail_of_cwd gets only the filename from the path. Verify?
-func! Get_tail_of_cwd() abort
-  return fnamemodify(getcwd(), ':t')
-endfunc
-"* The "%!" expression is evaluated in the context of the
-"+ current window and buffer, while %{} items are evaluated in the
-"+ context of the window that the statusline belongs to.
-set statusline+=%3*	" Switch to User3 highlight group 
-set statusline+=\ 	" Space
-set statusline+=%{Get_tail_of_cwd()}\ 
+"" Function Get_tail_of_cwd gets only the filename from the path. Verify?
+"func! Get_tail_of_cwd() abort
+"  return fnamemodify(getcwd(), ':t')
+"endfunc
+""* The "%!" expression is evaluated in the context of the
+""+ current window and buffer, while %{} items are evaluated in the
+""+ context of the window that the statusline belongs to.
+"set statusline+=%3*	" Switch to User3 highlight group 
+"set statusline+=\ 	" Space
+"set statusline+=%{Get_tail_of_cwd()}\ 
 
 "* Comments that begin with '"`' are commands/code
 "` set statusline+=%2*\ %<%t\ 
@@ -214,6 +214,72 @@ hi User4 guifg=#7acd12  guibg=#0e0e0e gui=bold
 hi User8 guifg=#ffffff  guibg=#0e0e0e
 
 " }}}
+
+set tabline=
+
+func! Get_tail_of_cwd_of_specified_buffer(n) abort
+  return fnamemodify(getcwd(-1, a:n), ':t')
+endfunc
+"* The "%!" expression is evaluated in the context of the
+"+ current window and buffer, while %{} items are evaluated in the
+"+ context of the window that the statusline belongs to.
+set tabline+=%3*	" Switch to User3 highlight group 
+set tabline+=\ 	" Space
+set tabline+=%{Get_tail_of_cwd()}\ 
+
+set tabline=%!MyTabLine()
+
+
+" Setting tabline ---------------------- {{{ 
+function MyTabLine()
+  let s = ''
+  for i in range(tabpagenr('$'))
+    " select the highlighting
+    if i + 1 == tabpagenr()
+      let s ..= '%#TabLineSel#'
+    else
+      let s ..= '%#TabLine#'
+    endif
+
+    " set the tab page number (for mouse clicks)
+    let s ..= '%' .. (i + 1) .. 'T'
+
+    " the label is made by MyTabLabel()
+    let s ..= ' %{MyTabLabel(' .. (i + 1) .. ')} '
+  endfor
+
+  " after the last tab fill with TabLineFill and reset tab page nr
+  let s ..= '%#TabLineFill#%T'
+
+ " " right-align the label to close the current tab page
+ " if tabpagenr('$') > 1
+ "   let s ..= '%=%#TabLine#%999Xclose'
+ " endif
+
+  return s
+endfunction
+
+function MyTabLabel(n)
+  let s = ''
+  "let buflist = tabpagebuflist(a:n)
+  "let winnr = tabpagewinnr(a:n)
+  let s ..= Get_tail_of_cwd_of_specified_buffer(a:n)
+  "return bufname(buflist[winnr - 1])
+  return s
+endfunction
+
+"func! Get_head_of_current_file_name() abort
+"  return fnamemodify(expand('%'), ':p:.:h').'/'
+"endfunc
+"func! Get_tail_of_current_file_name() abort
+"  return fnamemodify(expand('%'), ':t')
+"endfunc
+"set tabline+=%2*	" Switch to User1 highlight group
+"set tabline+=\ 	" Space
+"set tabline+=%<	" Where to truncate line if too long.  Default is at the start. No width fields allowed.
+"set tabline+=%{Get_head_of_current_file_name()}
+" }}}
+
 
 " Fzf settings and mappings ---------------------- {{{ 
 " Excerpted form textbook 'Modern Vim' Pg24
