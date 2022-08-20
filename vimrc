@@ -34,17 +34,24 @@ else
   call minpac#add('mattn/emmet-vim', {'type': 'start'})
   call minpac#add('tpope/vim-projectionist', {'type': 'start'})
   call minpac#add('vim-test/vim-test', {'type': 'start'})
-  ""call minpac#add('dense-analysis/ale', {'type': 'start'})
+  call minpac#add('dense-analysis/ale', {'type': 'start'})
+  call minpac#add('preservim/nerdtree', {'type': 'start'})
+  call minpac#add('tpope/vim-unimpaired', {'type': 'start'})
+  call minpac#add('tpope/vim-unimpaired', {'type': 'start'})
+  "[Refer: http://vimcasts.org/blog/2013/02/habit-breaking-habit-making/]
+  call minpac#add('wikitopian/hardmode', {'type': 'start'})
+
+  "call minpac#add('ryanoasis/vim-devicons', {'type': 'start'})
 
   " Autocomplete Plugins ---------------------- {{{
   " Plugins are for lsp completion/autocompletion
- "" call minpac#add('hrsh7th/cmp-nvim-lsp', {'type': 'start'})
- "" call minpac#add('hrsh7th/cmp-buffer', {'type': 'start'})
- "" call minpac#add('hrsh7th/cmp-path', {'type': 'start'})
- "" call minpac#add('hrsh7th/cmp-cmdline', {'type': 'start'})
- "" call minpac#add('hrsh7th/nvim-cmp', {'type': 'start'})
- "" call minpac#add('hrsh7th/cmp-vsnip', {'type': 'start'})
- "" call minpac#add('hrsh7th/vim-vsnip', {'type': 'start'})
+  call minpac#add('hrsh7th/cmp-nvim-lsp', {'type': 'start'})
+  call minpac#add('hrsh7th/cmp-buffer', {'type': 'start'})
+  call minpac#add('hrsh7th/cmp-path', {'type': 'start'})
+  call minpac#add('hrsh7th/cmp-cmdline', {'type': 'start'})
+  call minpac#add('hrsh7th/nvim-cmp', {'type': 'start'})
+  call minpac#add('hrsh7th/cmp-vsnip', {'type': 'start'})
+  call minpac#add('hrsh7th/vim-vsnip', {'type': 'start'})
   " }}}
 
 
@@ -220,12 +227,6 @@ set tabline=
 func! Get_tail_of_cwd_of_specified_buffer(n) abort
   return fnamemodify(getcwd(-1, a:n), ':t')
 endfunc
-"* The "%!" expression is evaluated in the context of the
-"+ current window and buffer, while %{} items are evaluated in the
-"+ context of the window that the statusline belongs to.
-set tabline+=%3*	" Switch to User3 highlight group 
-set tabline+=\ 	" Space
-set tabline+=%{Get_tail_of_cwd()}\ 
 
 set tabline=%!MyTabLine()
 
@@ -267,6 +268,10 @@ function MyTabLabel(n)
   "return bufname(buflist[winnr - 1])
   return s
 endfunction
+
+"* The "%!" expression is evaluated in the context of the
+"+ current window and buffer, while %{} items are evaluated in the
+"+ context of the window that the statusline belongs to.
 
 "func! Get_head_of_current_file_name() abort
 "  return fnamemodify(expand('%'), ':p:.:h').'/'
@@ -673,7 +678,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 " This won't work
 hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
 " This works
-hi TabLine ctermfg=14 guifg=Gray guibg=Black
+hi TabLine ctermfg=14 guifg=#C0C0C0 guibg=Black
 " This won't work
 hi TabLineSel ctermfg=Red ctermbg=Yellow
 
@@ -742,3 +747,10 @@ hi TabLineSel ctermfg=Red ctermbg=Yellow
 "  return s
 "endfunction
 
+nnoremap <leader>n :NERDTreeFocus<CR>
+" Override warning. Overrides a native feature.
+nnoremap <C-n> :NERDTree<CR>
+" Override warning. Overrides a native feature.
+nnoremap <C-t> :NERDTreeToggle<CR>
+" Override warning. Overrides a native feature.
+nnoremap <C-f> :NERDTreeFind<CR>
