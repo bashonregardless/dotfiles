@@ -1,5 +1,7 @@
 ---> Learn Lua
 
+---> Solve [https://www.vimgolf.com/] challenges
+
 ---> comment out a mapping, then source vimrc. The mapping still exist. Fix this.
 
 ---> Vim fugitive highlight for messages. (messages that come on pressing mapping
@@ -57,3 +59,24 @@ Wednesday 17 August 2022 07:53:14 PM IST
 
   Debug why the Seperation of concern created, i.e, tabline is not getting changed though created
   files as given in the above links.
+
+
+
+Saturday 20 August 2022 09:04:45 PM IST
+
+---> Create a mapping to open termial and cd into the cwd or repo dir.
+
+
+
+Friday 26 August 2022 03:34:32 PM IST
+
+---> How to select from line to line in vi?
+  [Refer: https://stackoverflow.com/q/52323609/11320006]
+
+---> Fast switching between two lines in file in vim.
+  The command has two forms:
+
+  ``
+  or
+  
+  ''

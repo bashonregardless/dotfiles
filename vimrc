@@ -38,8 +38,11 @@ else
   call minpac#add('preservim/nerdtree', {'type': 'start'})
   call minpac#add('tpope/vim-unimpaired', {'type': 'start'})
   call minpac#add('tpope/vim-unimpaired', {'type': 'start'})
+  call minpac#add('tpope/vim-repeat', {'type': 'start'})
   "[Refer: http://vimcasts.org/blog/2013/02/habit-breaking-habit-making/]
   call minpac#add('wikitopian/hardmode', {'type': 'start'})
+  call minpac#add('Yggdroot/indentLine', {'type': 'start'})
+  call minpac#add('tpope/vim-commentary', {'type': 'start'})
 
   "call minpac#add('ryanoasis/vim-devicons', {'type': 'start'})
 
@@ -229,10 +232,13 @@ func! Get_tail_of_cwd_of_specified_buffer(n) abort
 endfunc
 
 set tabline=%!MyTabLine()
+" Because we are using tabline to show repo name, we will want it to be always
+"+ visible.
+set showtabline=2
 
 
 " Setting tabline ---------------------- {{{ 
-function MyTabLine()
+function! MyTabLine()
   let s = ''
   for i in range(tabpagenr('$'))
     " select the highlighting
@@ -265,6 +271,7 @@ function MyTabLabel(n)
   "let buflist = tabpagebuflist(a:n)
   "let winnr = tabpagewinnr(a:n)
   let s ..= Get_tail_of_cwd_of_specified_buffer(a:n)
+  "let s ..= '  |'
   "return bufname(buflist[winnr - 1])
   return s
 endfunction
@@ -435,6 +442,8 @@ nnoremap <leader>rn :keepalt file
 " Terminal settings and mapping ---------------------- {{{ 
 " Terminal in vertical split mapping
 nnoremap <leader>t :vsplit \| terminal<cr>
+" TODO Create a mapping to open termial and cd into the cwd or repo dir
+"+ nnoremap <leader>t :vsplit \| terminal<cr>
 
 if has('nvim')
 " Terminal insert mode exit
@@ -464,7 +473,7 @@ endif
 " This might not necessarily be a good mapping, since <leader>=','
 " TODO This is indeed causing problem with mappings in emmet vim, see more examples
 " in github doc
-"let g:user_emmet_leader_key = '-'
+let g:user_emmet_leader_key='<C-y>'
 
 " See Greg Hurrell vim screencast video on youtube
      let g:projectionist_heuristics = {
@@ -503,6 +512,7 @@ nnoremap <leader>c :cclose<cr>
 nnoremap <leader>tf :TestFile<cr>
 let test#neovim#term_position = "vert"
 
+" TODO Closing bracket menace when not need. Solve it!"
 " Automatic closing brackets for Vim
 inoremap " ""<left>
 inoremap ' ''<left>
@@ -529,7 +539,7 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " [Refer: https://learnvimscriptthehardway.stevelosh.com/chapters/08.html]
-iab imr -- import React from 'react'
+iab imr import React from 'react'
 
 iab foco " ---------------------- {{{
 " TODO When "Automatic closing brackets for Vim" mapping is on, an additional
@@ -549,6 +559,7 @@ onoremap in( :<c-u>normal! f(vi(<cr>
 onoremap an( :<c-u>normal! f(va(<cr>
 onoremap il( :<c-u>normal! F(vi(<cr>
 onoremap al( :<c-u>normal! F(va(<cr>
+
 " Delete the contents inside of the last(previous) parentheses and place you in 
 "+ insert mode between them.
 onoremap in[ :<c-u>normal! f[vi[<cr>
@@ -556,10 +567,22 @@ onoremap an[ :<c-u>normal! f[va[<cr>
 onoremap il[ :<c-u>normal! F[vi[<cr>
 onoremap al[ :<c-u>normal! F[va[<cr>
 
-onoremap in" :<c-u>normal! f"vi"<cr>
-onoremap an" :<c-u>normal! f"va"<cr>
-onoremap il" :<c-u>normal! F"vi"<cr>
-onoremap al" :<c-u>normal! F"va"<cr>
+" Delete the contents inside of the last(previous) parentheses and place you in 
+"+ insert mode between them.
+onoremap in{ :<c-u>normal! f{vi{<cr>
+onoremap an{ :<c-u>normal! f{va{<cr>
+onoremap il{ :<c-u>normal! F{vi{<cr>
+onoremap al{ :<c-u>normal! F{va{<cr>
+
+
+" NOTE The functionality to achieve which this mapping was created for, is
+"+ provided by default using the combination `ci"`. This is also true for
+"+ single quotes. So, the mapping group below is redundant.
+" Also note that it is not the case with braces.
+"onoremap in" :<c-u>normal! f"vi"<cr>
+"onoremap an" :<c-u>normal! f"va"<cr>
+"onoremap il" :<c-u>normal! F"vi"<cr>
+"onoremap al" :<c-u>normal! F"va"<cr>
 
 " open child block after matching braces
 nnoremap <leader>on{ f{a<c-j><esc>O
@@ -678,74 +701,9 @@ set foldexpr=nvim_treesitter#foldexpr()
 " This won't work
 hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
 " This works
-hi TabLine ctermfg=14 guifg=#C0C0C0 guibg=Black
+hi TabLine ctermfg=14 guifg=#C0C0C0 guibg=#484848 gui=bold
 " This won't work
-hi TabLineSel ctermfg=Red ctermbg=Yellow
-
-"''set tabline=%!MyTabLine()  " custom tab pages line
-"function! MyTabLine()
-"  let s = ''
-"  " loop through each tab page
-"  for i in range(tabpagenr('$'))
-"    if i + 1 == tabpagenr()
-"      let s .= '%#TabLineSel#'
-"    else
-"      let s .= '%#TabLine#'
-"    endif
-"    if i + 1 == tabpagenr()
-"      lgrep s .= '%#TabLineSel#' " WildMenu
-"    else
-"      let s .= '%#Title#'
-"    endif
-"    " set the tab page number (for mouse clicks)
-"    let s .= '%' . (i + 1) . 'T '
-"    " set page number string
-"    let s .= i + 1 . ''
-"    " get buffer names and statuses
-"    let n = ''  " temp str for buf names
-"    let m = 0   " &modified counter
-"    let buflist = tabpagebuflist(i + 1)
-"    " loop through each buffer in a tab
-"    for b in buflist
-"      if getbufvar(b, "&buftype") == 'help'
-"        " let n .= '[H]' . fnamemodify(bufname(b), ':t:s/.txt$//')
-"      elseif getbufvar(b, "&buftype") == 'quickfix'
-"        " let n .= '[Q]'
-"      elseif getbufvar(b, "&modifiable")
-"        let n .= fnamemodify(bufname(b), ':t') . ', ' " pathshorten(bufname(b))
-"      endif
-"      if getbufvar(b, "&modified")
-"        let m += 1
-"      endif
-"    endfor
-"    " let n .= fnamemodify(bufname(buflist[tabpagewinnr(i + 1) - 1]), ':t')
-"    let n = substitute(n, ', $', '', '')
-"    " add modified label
-"    if m > 0
-"      let s .= '+'
-"      " let s .= '[' . m . '+]'
-"    endif
-"    if i + 1 == tabpagenr()
-"      let s .= ' %#TabLineSel#'
-"    else
-"      let s .= ' %#TabLine#'
-"    endif
-"    " add buffer names
-"    if n == ''
-"      let s.= '[New]'
-"    else
-"      let s .= n
-"    endif
-"    " switch to no underlining and add final space
-"    let s .= ' '
-"  endfor
-"  let s .= '%#TabLineFill#%T'
-"  " right-aligned close button
-"  " if tabpagenr('$') > 1
-"  "   let s .= '%=%#TabLineFill#%999Xclose'
-"  " endif
-"  return s
-"endfunction
+hi TabLineSel ctermfg=Red ctermbg=Yellow gui=bold
 
 nnoremap <leader>n :NERDTreeFocus<CR>
 " Override warning. Overrides a native feature.
@@ -754,3 +712,50 @@ nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 " Override warning. Overrides a native feature.
 nnoremap <C-f> :NERDTreeFind<CR>
+
+set guicursor+=a:blinkon1
+
+" Javascript copy entire funciton with declaration
+"+ The below mapping should be run from within the function body
+" TODO This mapping is filetype specific. Move it to ftp.
+" TODO Warning Suffix of this mapping (`<leader>c`) already used in another mapping. This is
+" causing delay in execution of that mapping. Find a solution.
+nnoremap <leader>cf [mV%y
+
+" Hard mdoe
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
+augroup hardmodeInsertModeToggle
+  autocmd!
+  autocmd InsertLeave * call HardMode()
+  autocmd InsertEnter * call EasyMode()
+augroup END
+
+" ALE Navigation
+nnoremap <leader>an :ALENext<cr>
+nnoremap <leader>ap :ALEPrevious<cr>
+
+hi Folded ctermfg=14 ctermbg=242 guifg=#7aa2f7 guibg=#282828
+
+"Recursively open all folds in current open fold?
+"+ [Refer: https://vi.stackexchange.com/a/16046/26997]
+nnoremap <leader>O zczA
+
+" Navigating HTML tags in Vim
+" TODO These mapping fail for self closing tags. Fix it!
+"nnoremap [vt vatv
+"nnoremap ]vt vatov
+
+" Vim unimpaired plugin provides mapping to toggle hlsearch.
+"+ This is good, but what I'd like to have is to keep hlsearch on all the time,
+"+ and instead have a mapping to turn off the highlighted matches.
+"+ So remapping this unimpaired shortcut
+nnoremap ]oh :noh<cr>
+
+" Can I disable continuation of comments to the next line in Vim?
+nnoremap [dc :set formatoptions+=cro
+nnoremap ]dc :set formatoptions-=cro
+
+" How to delete line above/below cursor, but not current line?
+nnoremap <leader>[d :-d<cr>
+nnoremap <leader>]d :+d<cr>
