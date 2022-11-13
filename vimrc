@@ -667,6 +667,7 @@ augroup END
 set foldlevelstart=1
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
+""set nofoldenable
 
 """ see vim-todo
 ""function WincentTablineLabel(n) abort
