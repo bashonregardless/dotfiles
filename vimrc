@@ -177,7 +177,6 @@ augroup END
 
 set guicursor+=a:blinkon1
 
-hi Folded ctermfg=14 ctermbg=242 guifg=#7aa2f7 guibg=#282828
 
 " Navigating HTML tags in Vim
 " TODO These mapping fail for self closing tags. Fix it!

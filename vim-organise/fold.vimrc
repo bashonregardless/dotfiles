@@ -51,3 +51,4 @@ set foldexpr=nvim_treesitter#foldexpr()
 nnoremap z{ zfa{ 
 nnoremap z( zfa( 
 
+hi Folded ctermfg=14 ctermbg=242 guifg=#7aa2f7 guibg=#282828
