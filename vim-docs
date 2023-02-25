@@ -134,3 +134,10 @@ Sat Feb 25 10:27:45 IST 2023
 
 13. Why mouse does not work in iTerm2 but works in Terminal?
 A. For solution [Refer: https://stackoverflow.com/a/62493548/11320006]
+
+
+Sat Feb 25 16:05:49 IST 2023
+
+14. In vim-illuminate how to overcome `<a-n>` mapping limitation in macOS?
+A. Edit the source `vim-illuminate/plugin/illuminate.vim` to change `<a-n>` to `<Down>`,
+  `<a-p>` to `<Up>`, and `<a-i>` to `<C-I>`
