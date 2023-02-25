@@ -9,7 +9,6 @@ set tabline=%!MyTabLine()
 "+ visible.
 set showtabline=2
 
-
 " Setting tabline ---------------------- {{{ 
 function! MyTabLine()
   let s = ''
@@ -35,6 +34,18 @@ function! MyTabLine()
  " if tabpagenr('$') > 1
  "   let s ..= '%=%#TabLine#%999Xclose'
  " endif
+
+   let i = 0
+   let s ..= '%= '
+   while i < argc()
+     let f = fnamemodify(argv(i), ':t')
+     if i == argidx()
+       let s ..= '%4*' .. f .. '  '
+     else
+       let s ..= '%2*' .. f .. '  '
+     endif
+     let i = i + 1
+   endwhile
 
   return s
 endfunction

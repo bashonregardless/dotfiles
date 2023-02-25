@@ -38,3 +38,12 @@ nnoremap <leader>gfh :Git log -p -- [filename]
 " How to create a local branch from an existing remote branch?
 nnoremap <leader>gco :Git checkout -b [new_branch_name] [remote_name]/[remote_branch_name]
 " }}}
+
+" Diff between current file and the index
+nnoremap <leader>gdi :vert Gdiff :0
+
+" Diff between current file and current file n commits ago
+nnoremap <leader>gdn :vert Gdiff !~
+
+" Diff between current file and some other [revision]
+nnoremap <leader>gdr :vert Gdiff 

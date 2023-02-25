@@ -30,4 +30,3 @@ set cursorline
 "set relative 'hybrid' line numbers
 set nu
 set rnu
-

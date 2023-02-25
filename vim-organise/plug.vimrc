@@ -36,6 +36,8 @@ else
   call minpac#add('wikitopian/hardmode', {'type': 'start'})
   call minpac#add('Yggdroot/indentLine', {'type': 'start'})
   call minpac#add('tpope/vim-commentary', {'type': 'start'})
+  call minpac#add('RRethy/vim-illuminate', {'type': 'start'})
+  "call minpac#add('Pocco81/auto-save.nvim', {'type': 'start'})
 
   "call minpac#add('ryanoasis/vim-devicons', {'type': 'start'})
 
