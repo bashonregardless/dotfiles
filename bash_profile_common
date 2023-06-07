@@ -72,7 +72,8 @@ export VIMDATA=~/.local/share/nvim
 #+ `~/.vim/pack/minpac/start/fzf/install --bin`.
 #+ In our case when we hit ctrl-p from vim, we
 #+ are prompted to install the binary.
-export PATH="$PATH:$VIMCONFIG/pack/bundle/start/fzf/bin"
+software_dir="$HOME/software"
+export PATH="$software_dir/fzf/bin:$PATH"
 
 # This piece of code is copied from original .profile file (the one that 
 # came with OS installation)
@@ -100,13 +101,13 @@ fi
 #
 #
 # Source fzf completion file
-if [ -f $VIMCONFIG/pack/bundle/start/fzf/shell/completion.bash ]; then
-	source $VIMCONFIG/pack/bundle/start/fzf/shell/completion.bash
+if [ -f $software_dir/fzf/shell/completion.bash ]; then
+	source $software_dir/fzf/shell/completion.bash
 fi
 
 # For bash key bindings to work properly, source key-bindings.bash
-if [ -f $VIMCONFIG/pack/bundle/start/fzf/shell/key-bindings.bash ]; then
-  source $VIMCONFIG/pack/bundle/start/fzf/shell/key-bindings.bash
+if [ -f $software_dir/fzf/shell/key-bindings.bash ]; then
+  source $software_dir/fzf/shell/key-bindings.bash
 fi
 
 echo "Exiting bash_profile_common"
