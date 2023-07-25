@@ -14,5 +14,21 @@ function grall {
 }
 export -f grall
 
+software_dir="$HOME/software"
+
+###
+# This code below also exits in bash_profile but it has been added here to make sure that it is loaded 
+# when a new terminal in neovim is opened
+# Source fzf completion file
+if [ -f $software_dir/fzf/shell/completion.bash ]; then
+	source $software_dir/fzf/shell/completion.bash
+fi
+
+# For bash key bindings to work properly, source key-bindings.bash
+if [ -f $software_dir/fzf/shell/key-bindings.bash ]; then
+  source $software_dir/fzf/shell/key-bindings.bash
+fi
+###
+
 echo "Exiting custom .bashrc file"
 
