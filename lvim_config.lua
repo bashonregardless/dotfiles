@@ -15,43 +15,48 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 lvim.plugins = {
-  {
-    "tpope/vim-fugitive",
-    cmd = {
-      "G",
-      "Git",
-      "Gdiffsplit",
-      "Gread",
-      "Gwrite",
-      "Ggrep",
-      "GMove",
-      "GDelete",
-      "GBrowse",
-      "GRemove",
-      "GRename",
-      "Glgrep",
-      "Gedit"
+    {
+        "tpope/vim-fugitive",
+        cmd = {
+            "G",
+            "Git",
+            "Gdiffsplit",
+            "Gread",
+            "Gwrite",
+            "Ggrep",
+            "GMove",
+            "GDelete",
+            "GBrowse",
+            "GRemove",
+            "GRename",
+            "Glgrep",
+            "Gedit"
+        },
+        ft = {"fugitive"}
     },
-    ft = {"fugitive"}
-  },
-  {
-    "Pocco81/auto-save.nvim",
-    config = function()
-      require("auto-save").setup()
-    end,
-  },
-  {
-    "kevinhwang91/nvim-bqf",
-    ft="qf"
-  },
-  { "ellisonleao/gruvbox.nvim" },
-  { "tpope/vim-repeat" },
-  { "ggandor/leap.nvim",
-    config = function()
-      require('leap').add_default_mappings(true)
-    end,
-  },
-  { "github/copilot.vim" }
+    {
+        "Pocco81/auto-save.nvim",
+        config = function()
+            require("auto-save").setup()
+        end,
+    },
+    {
+        "kevinhwang91/nvim-bqf",
+        ft="qf"
+    },
+    { "ellisonleao/gruvbox.nvim" },
+    { "tpope/vim-repeat" },
+    { "ggandor/leap.nvim",
+        config = function()
+            require('leap').add_default_mappings(true)
+        end,
+    },
+    { "github/copilot.vim" },
+    {
+        "prettier/vim-prettier",
+        run = "yarn install",
+        ft = { "javascript", "typescript", "css", "less", "scss", "json", "graphql", "markdown" }
+    }
 }
 
 --- [Refer: https://github.com/LunarVim/LunarVim/issues/1856#issuecomment-954224770]
@@ -62,15 +67,15 @@ vim.g.copilot_tab_fallback = ""
 local cmp = require "cmp"
 
 lvim.builtin.cmp.mapping["<Tab>"] = function(fallback)
-  if cmp.visible() then
-    cmp.select_next_item()
-  else
-    local copilot_keys = vim.fn["copilot#Accept"]()
-    if copilot_keys ~= "" then
-      vim.api.nvim_feedkeys(copilot_keys, "i", true)
+    if cmp.visible() then
+        cmp.select_next_item()
     else
-      fallback()
+        local copilot_keys = vim.fn["copilot#Accept"]()
+        if copilot_keys ~= "" then
+            vim.api.nvim_feedkeys(copilot_keys, "i", true)
+        else
+            fallback()
+        end
     end
-  end
 end
 ---
